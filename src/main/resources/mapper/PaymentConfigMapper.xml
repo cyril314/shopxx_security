@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.PaymentConfigDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.PaymentConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="configObjectStore" jdbcType="VARCHAR" property="configobjectstore" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="paymentFee" jdbcType="DECIMAL" property="paymentfee" />
+    <result column="paymentConfigType" jdbcType="INTEGER" property="paymentconfigtype" />
+    <result column="paymentFeeType" jdbcType="INTEGER" property="paymentfeetype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, configObjectStore, description, `name`, sort, paymentFee, 
+    paymentConfigType, paymentFeeType
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from payment_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.PaymentConfig" useGeneratedKeys="true">
+    insert into payment_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="configobjectstore != null">
+        configObjectStore,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="paymentfee != null">
+        paymentFee,
+      </if>
+      <if test="paymentconfigtype != null">
+        paymentConfigType,
+      </if>
+      <if test="paymentfeetype != null">
+        paymentFeeType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="configobjectstore != null">
+        #{configobjectstore,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="paymentfee != null">
+        #{paymentfee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentconfigtype != null">
+        #{paymentconfigtype,jdbcType=INTEGER},
+      </if>
+      <if test="paymentfeetype != null">
+        #{paymentfeetype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.PaymentConfig">
+    update payment_config
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="configobjectstore != null">
+        configObjectStore = #{configobjectstore,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="paymentfee != null">
+        paymentFee = #{paymentfee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentconfigtype != null">
+        paymentConfigType = #{paymentconfigtype,jdbcType=INTEGER},
+      </if>
+      <if test="paymentfeetype != null">
+        paymentFeeType = #{paymentfeetype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="configobjectstore != null and configobjectstore != ''">
+         and configObjectStore = #{configobjectstore,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null and description != ''">
+         and description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+         and `name` = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="sort != null and sort != ''">
+         and sort = #{sort,jdbcType=INTEGER}
+      </if>
+      <if test="paymentfee != null and paymentfee != ''">
+         and paymentFee = #{paymentfee,jdbcType=DECIMAL}
+      </if>
+      <if test="paymentconfigtype != null and paymentconfigtype != ''">
+         and paymentConfigType = #{paymentconfigtype,jdbcType=INTEGER}
+      </if>
+      <if test="paymentfeetype != null and paymentfeetype != ''">
+         and paymentFeeType = #{paymentfeetype,jdbcType=INTEGER}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.PaymentConfig" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from payment_config
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from payment_config
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from payment_config
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from payment_config
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

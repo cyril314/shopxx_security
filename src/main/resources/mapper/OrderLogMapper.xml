@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OrderLogDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OrderLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="orderLogType" jdbcType="INTEGER" property="orderlogtype" />
+    <result column="orderSn" jdbcType="VARCHAR" property="ordersn" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, `operator`, info, orderLogType, orderSn, order_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from order_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OrderLog" useGeneratedKeys="true">
+    insert into order_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="operator != null">
+        `operator`,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="orderlogtype != null">
+        orderLogType,
+      </if>
+      <if test="ordersn != null">
+        orderSn,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogtype != null">
+        #{orderlogtype,jdbcType=INTEGER},
+      </if>
+      <if test="ordersn != null">
+        #{ordersn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OrderLog">
+    update order_log
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        `operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogtype != null">
+        orderLogType = #{orderlogtype,jdbcType=INTEGER},
+      </if>
+      <if test="ordersn != null">
+        orderSn = #{ordersn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="operator != null and operator != ''">
+         and `operator` = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="info != null and info != ''">
+         and info = #{info,jdbcType=VARCHAR}
+      </if>
+      <if test="orderlogtype != null and orderlogtype != ''">
+         and orderLogType = #{orderlogtype,jdbcType=INTEGER}
+      </if>
+      <if test="ordersn != null and ordersn != ''">
+         and orderSn = #{ordersn,jdbcType=VARCHAR}
+      </if>
+      <if test="orderId != null and orderId != ''">
+         and order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OrderLog" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from order_log
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from order_log
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from order_log
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from order_log
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

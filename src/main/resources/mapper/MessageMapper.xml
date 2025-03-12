@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.MessageDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Message">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="is_read" jdbcType="BIT" property="isRead" />
+    <result column="is_draftbox_save" jdbcType="BIT" property="isDraftboxSave" />
+    <result column="from_member_id" jdbcType="VARCHAR" property="fromMemberId" />
+    <result column="to_member_id" jdbcType="VARCHAR" property="toMemberId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, title, content, delete_status, is_read, is_draftbox_save, 
+    from_member_id, to_member_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Message" useGeneratedKeys="true">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="isDraftboxSave != null">
+        is_draftbox_save,
+      </if>
+      <if test="fromMemberId != null">
+        from_member_id,
+      </if>
+      <if test="toMemberId != null">
+        to_member_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=BIT},
+      </if>
+      <if test="isDraftboxSave != null">
+        #{isDraftboxSave,jdbcType=BIT},
+      </if>
+      <if test="fromMemberId != null">
+        #{fromMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="toMemberId != null">
+        #{toMemberId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Message">
+    update message
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=BIT},
+      </if>
+      <if test="isDraftboxSave != null">
+        is_draftbox_save = #{isDraftboxSave,jdbcType=BIT},
+      </if>
+      <if test="fromMemberId != null">
+        from_member_id = #{fromMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="toMemberId != null">
+        to_member_id = #{toMemberId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="title != null and title != ''">
+         and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null and content != ''">
+         and content = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="deleteStatus != null and deleteStatus != ''">
+         and delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+      <if test="isRead != null and isRead != ''">
+         and is_read = #{isRead,jdbcType=BIT}
+      </if>
+      <if test="isDraftboxSave != null and isDraftboxSave != ''">
+         and is_draftbox_save = #{isDraftboxSave,jdbcType=BIT}
+      </if>
+      <if test="fromMemberId != null and fromMemberId != ''">
+         and from_member_id = #{fromMemberId,jdbcType=VARCHAR}
+      </if>
+      <if test="toMemberId != null and toMemberId != ''">
+         and to_member_id = #{toMemberId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Message" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from message
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from message
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from message
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from message
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

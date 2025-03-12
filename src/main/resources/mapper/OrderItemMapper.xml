@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OrderItemDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OrderItem">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="deliveryQuantity" jdbcType="INTEGER" property="deliveryquantity" />
+    <result column="productHtmlFilePath" jdbcType="VARCHAR" property="producthtmlfilepath" />
+    <result column="productQuantity" jdbcType="INTEGER" property="productquantity" />
+    <result column="productPrice" jdbcType="DECIMAL" property="productprice" />
+    <result column="productName" jdbcType="VARCHAR" property="productname" />
+    <result column="productSn" jdbcType="VARCHAR" property="productsn" />
+    <result column="totalDeliveryQuantity" jdbcType="INTEGER" property="totaldeliveryquantity" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, deliveryQuantity, productHtmlFilePath, productQuantity, 
+    productPrice, productName, productSn, totalDeliveryQuantity, order_id, product_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from order_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OrderItem" useGeneratedKeys="true">
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="deliveryquantity != null">
+        deliveryQuantity,
+      </if>
+      <if test="producthtmlfilepath != null">
+        productHtmlFilePath,
+      </if>
+      <if test="productquantity != null">
+        productQuantity,
+      </if>
+      <if test="productprice != null">
+        productPrice,
+      </if>
+      <if test="productname != null">
+        productName,
+      </if>
+      <if test="productsn != null">
+        productSn,
+      </if>
+      <if test="totaldeliveryquantity != null">
+        totalDeliveryQuantity,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryquantity != null">
+        #{deliveryquantity,jdbcType=INTEGER},
+      </if>
+      <if test="producthtmlfilepath != null">
+        #{producthtmlfilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="productquantity != null">
+        #{productquantity,jdbcType=INTEGER},
+      </if>
+      <if test="productprice != null">
+        #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productname != null">
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsn != null">
+        #{productsn,jdbcType=VARCHAR},
+      </if>
+      <if test="totaldeliveryquantity != null">
+        #{totaldeliveryquantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OrderItem">
+    update order_item
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryquantity != null">
+        deliveryQuantity = #{deliveryquantity,jdbcType=INTEGER},
+      </if>
+      <if test="producthtmlfilepath != null">
+        productHtmlFilePath = #{producthtmlfilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="productquantity != null">
+        productQuantity = #{productquantity,jdbcType=INTEGER},
+      </if>
+      <if test="productprice != null">
+        productPrice = #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productname != null">
+        productName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsn != null">
+        productSn = #{productsn,jdbcType=VARCHAR},
+      </if>
+      <if test="totaldeliveryquantity != null">
+        totalDeliveryQuantity = #{totaldeliveryquantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="deliveryquantity != null and deliveryquantity != ''">
+         and deliveryQuantity = #{deliveryquantity,jdbcType=INTEGER}
+      </if>
+      <if test="producthtmlfilepath != null and producthtmlfilepath != ''">
+         and productHtmlFilePath = #{producthtmlfilepath,jdbcType=VARCHAR}
+      </if>
+      <if test="productquantity != null and productquantity != ''">
+         and productQuantity = #{productquantity,jdbcType=INTEGER}
+      </if>
+      <if test="productprice != null and productprice != ''">
+         and productPrice = #{productprice,jdbcType=DECIMAL}
+      </if>
+      <if test="productname != null and productname != ''">
+         and productName = #{productname,jdbcType=VARCHAR}
+      </if>
+      <if test="productsn != null and productsn != ''">
+         and productSn = #{productsn,jdbcType=VARCHAR}
+      </if>
+      <if test="totaldeliveryquantity != null and totaldeliveryquantity != ''">
+         and totalDeliveryQuantity = #{totaldeliveryquantity,jdbcType=INTEGER}
+      </if>
+      <if test="orderId != null and orderId != ''">
+         and order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''">
+         and product_id = #{productId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OrderItem" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from order_item
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from order_item
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from order_item
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from order_item
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

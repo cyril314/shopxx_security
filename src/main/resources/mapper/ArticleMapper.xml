@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.ArticleDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="meta_keywords" jdbcType="VARCHAR" property="metaKeywords" />
+    <result column="meta_description" jdbcType="VARCHAR" property="metaDescription" />
+    <result column="is_publication" jdbcType="BIT" property="isPublication" />
+    <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="is_top" jdbcType="BIT" property="isTop" />
+    <result column="page_count" jdbcType="INTEGER" property="pageCount" />
+    <result column="article_category_id" jdbcType="VARCHAR" property="articleCategoryId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, author, title, content, hits, html_file_path, meta_keywords, 
+    meta_description, is_publication, is_recommend, is_top, page_count, article_category_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Article" useGeneratedKeys="true">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="isPublication != null">
+        is_publication,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="isTop != null">
+        is_top,
+      </if>
+      <if test="pageCount != null">
+        page_count,
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCategoryId != null">
+        #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Article">
+    update article
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublication != null">
+        is_publication = #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="isTop != null">
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="pageCount != null">
+        page_count = #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id = #{articleCategoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="author != null and author != ''">
+         and author = #{author,jdbcType=VARCHAR}
+      </if>
+      <if test="title != null and title != ''">
+         and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null and content != ''">
+         and content = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="hits != null and hits != ''">
+         and hits = #{hits,jdbcType=INTEGER}
+      </if>
+      <if test="htmlFilePath != null and htmlFilePath != ''">
+         and html_file_path = #{htmlFilePath,jdbcType=VARCHAR}
+      </if>
+      <if test="metaKeywords != null and metaKeywords != ''">
+         and meta_keywords = #{metaKeywords,jdbcType=VARCHAR}
+      </if>
+      <if test="metaDescription != null and metaDescription != ''">
+         and meta_description = #{metaDescription,jdbcType=VARCHAR}
+      </if>
+      <if test="isPublication != null and isPublication != ''">
+         and is_publication = #{isPublication,jdbcType=BIT}
+      </if>
+      <if test="isRecommend != null and isRecommend != ''">
+         and is_recommend = #{isRecommend,jdbcType=BIT}
+      </if>
+      <if test="isTop != null and isTop != ''">
+         and is_top = #{isTop,jdbcType=BIT}
+      </if>
+      <if test="pageCount != null and pageCount != ''">
+         and page_count = #{pageCount,jdbcType=INTEGER}
+      </if>
+      <if test="articleCategoryId != null and articleCategoryId != ''">
+         and article_category_id = #{articleCategoryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Article" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from article
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from article
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from article
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from article
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

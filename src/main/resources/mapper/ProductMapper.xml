@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.ProductDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Product">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="freeze_store" jdbcType="INTEGER" property="freezeStore" />
+    <result column="html_file_path" jdbcType="VARCHAR" property="htmlFilePath" />
+    <result column="is_marketable" jdbcType="BIT" property="isMarketable" />
+    <result column="is_best" jdbcType="BIT" property="isBest" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="brand_id" jdbcType="VARCHAR" property="brandId" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="meta_keywords" jdbcType="VARCHAR" property="metaKeywords" />
+    <result column="meta_description" jdbcType="VARCHAR" property="metaDescription" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="store" jdbcType="INTEGER" property="store" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="weight_unit" jdbcType="INTEGER" property="weightUnit" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="product_images" jdbcType="VARCHAR" property="productImages" />
+    <result column="product_category_id" jdbcType="VARCHAR" property="productCategoryId" />
+    <result column="product_type_id" jdbcType="VARCHAR" property="productTypeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, description, freeze_store, html_file_path, is_marketable, 
+    is_best, is_hot, is_new, brand_id, market_price, meta_keywords, meta_description, 
+    `name`, point, price, store, weight, weight_unit, product_sn, product_images, product_category_id, 
+    product_type_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from product
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Product" useGeneratedKeys="true">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="freezeStore != null">
+        freeze_store,
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path,
+      </if>
+      <if test="isMarketable != null">
+        is_marketable,
+      </if>
+      <if test="isBest != null">
+        is_best,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="isNew != null">
+        is_new,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null">
+        meta_description,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="weightUnit != null">
+        weight_unit,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="productImages != null">
+        product_images,
+      </if>
+      <if test="productCategoryId != null">
+        product_category_id,
+      </if>
+      <if test="productTypeId != null">
+        product_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeStore != null">
+        #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarketable != null">
+        #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isBest != null">
+        #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        #{isNew,jdbcType=BIT},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="metaKeywords != null">
+        #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productImages != null">
+        #{productImages,jdbcType=VARCHAR},
+      </if>
+      <if test="productCategoryId != null">
+        #{productCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        #{productTypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Product">
+    update product
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeStore != null">
+        freeze_store = #{freezeStore,jdbcType=INTEGER},
+      </if>
+      <if test="htmlFilePath != null">
+        html_file_path = #{htmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarketable != null">
+        is_marketable = #{isMarketable,jdbcType=BIT},
+      </if>
+      <if test="isBest != null">
+        is_best = #{isBest,jdbcType=BIT},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="isNew != null">
+        is_new = #{isNew,jdbcType=BIT},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="metaKeywords != null">
+        meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null">
+        meta_description = #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="store != null">
+        store = #{store,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weightUnit != null">
+        weight_unit = #{weightUnit,jdbcType=INTEGER},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productImages != null">
+        product_images = #{productImages,jdbcType=VARCHAR},
+      </if>
+      <if test="productCategoryId != null">
+        product_category_id = #{productCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        product_type_id = #{productTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="description != null and description != ''">
+         and description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="freezeStore != null and freezeStore != ''">
+         and freeze_store = #{freezeStore,jdbcType=INTEGER}
+      </if>
+      <if test="htmlFilePath != null and htmlFilePath != ''">
+         and html_file_path = #{htmlFilePath,jdbcType=VARCHAR}
+      </if>
+      <if test="isMarketable != null and isMarketable != ''">
+         and is_marketable = #{isMarketable,jdbcType=BIT}
+      </if>
+      <if test="isBest != null and isBest != ''">
+         and is_best = #{isBest,jdbcType=BIT}
+      </if>
+      <if test="isHot != null and isHot != ''">
+         and is_hot = #{isHot,jdbcType=BIT}
+      </if>
+      <if test="isNew != null and isNew != ''">
+         and is_new = #{isNew,jdbcType=BIT}
+      </if>
+      <if test="brandId != null and brandId != ''">
+         and brand_id = #{brandId,jdbcType=VARCHAR}
+      </if>
+      <if test="marketPrice != null and marketPrice != ''">
+         and market_price = #{marketPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="metaKeywords != null and metaKeywords != ''">
+         and meta_keywords = #{metaKeywords,jdbcType=VARCHAR}
+      </if>
+      <if test="metaDescription != null and metaDescription != ''">
+         and meta_description = #{metaDescription,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+         and `name` = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="point != null and point != ''">
+         and point = #{point,jdbcType=INTEGER}
+      </if>
+      <if test="price != null and price != ''">
+         and price = #{price,jdbcType=DECIMAL}
+      </if>
+      <if test="store != null and store != ''">
+         and store = #{store,jdbcType=INTEGER}
+      </if>
+      <if test="weight != null and weight != ''">
+         and weight = #{weight,jdbcType=DOUBLE}
+      </if>
+      <if test="weightUnit != null and weightUnit != ''">
+         and weight_unit = #{weightUnit,jdbcType=INTEGER}
+      </if>
+      <if test="productSn != null and productSn != ''">
+         and product_sn = #{productSn,jdbcType=VARCHAR}
+      </if>
+      <if test="productImages != null and productImages != ''">
+         and product_images = #{productImages,jdbcType=VARCHAR}
+      </if>
+      <if test="productCategoryId != null and productCategoryId != ''">
+         and product_category_id = #{productCategoryId,jdbcType=VARCHAR}
+      </if>
+      <if test="productTypeId != null and productTypeId != ''">
+         and product_type_id = #{productTypeId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Product" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from product
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from product
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from product
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from product
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

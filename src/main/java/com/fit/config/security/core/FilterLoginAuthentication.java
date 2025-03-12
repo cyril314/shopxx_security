@@ -1,0 +1,83 @@
+package com.fit.config.security.core;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @AUTO 重写的认证过滤器
+ * @Author AIM
+ * @DATE 2018/7/18
+ */
+public class FilterLoginAuthentication extends UsernamePasswordAuthenticationFilter {
+
+    private final Logger logger = LoggerFactory.getLogger(FilterLoginAuthentication.class);
+
+    private static final String USERNAME = "j_username";
+    private static final String PASSWORD = "j_password";
+    private static final String CAPTCHA = "j_captcha";
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("=============================> 登陆访问第一步");
+        }
+        if (!request.getMethod().equals("POST")) {
+            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+        }
+
+        String inCaptcha = request.getParameter(CAPTCHA);
+        String simpleCaptcha = request.getSession().getAttribute("simpleCaptcha").toString();
+        if (!simpleCaptcha.toUpperCase().equals(inCaptcha.toUpperCase())) {
+            // 验证码错误，返回错误信息
+            request.setAttribute("error", CAPTCHA);
+        }
+
+        String username = obtainUsername(request);
+        String password = obtainPassword(request);
+
+        if (isEmpty(username) || isEmpty(password)) {
+            throw new BadCredentialsException("用户名或密码不能为空！");// 在界面输出自定义的信息！！
+        }
+
+        //实现验证
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+        //允许设置用户详细属性
+        setDetails(request, authRequest);
+        //运行
+        return this.getAuthenticationManager().authenticate(authRequest);
+    }
+
+    @Override
+    protected String obtainUsername(HttpServletRequest request) {
+        Object obj = request.getParameter(USERNAME);
+        return null == obj ? "" : obj.toString().trim();
+    }
+
+    @Override
+    protected String obtainPassword(HttpServletRequest request) {
+        Object obj = request.getParameter(PASSWORD);
+        return null == obj ? "" : obj.toString().trim();
+    }
+
+    @Override
+    protected void setDetails(HttpServletRequest request, UsernamePasswordAuthenticationToken authRequest) {
+        super.setDetails(request, authRequest);
+    }
+
+    private boolean isEmpty(String s) {
+        if (null == s || "".equals(s) || "".equals(s.trim()) || "null".equalsIgnoreCase(s)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

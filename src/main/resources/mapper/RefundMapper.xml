@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.RefundDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Refund">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="payee" jdbcType="VARCHAR" property="payee" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="payment_config_id" jdbcType="VARCHAR" property="paymentConfigId" />
+    <result column="payment_config_name" jdbcType="VARCHAR" property="paymentConfigName" />
+    <result column="refund_sn" jdbcType="VARCHAR" property="refundSn" />
+    <result column="refund_type" jdbcType="INTEGER" property="refundType" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="deposit_id" jdbcType="VARCHAR" property="depositId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, payee, bank_name, bank_account, `operator`, memo, payment_config_id, 
+    payment_config_name, refund_sn, refund_type, total_amount, order_id, deposit_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from refund
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from refund
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Refund" useGeneratedKeys="true">
+    insert into refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="payee != null">
+        payee,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="operator != null">
+        `operator`,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="paymentConfigId != null">
+        payment_config_id,
+      </if>
+      <if test="paymentConfigName != null">
+        payment_config_name,
+      </if>
+      <if test="refundSn != null">
+        refund_sn,
+      </if>
+      <if test="refundType != null">
+        refund_type,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="depositId != null">
+        deposit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payee != null">
+        #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConfigId != null">
+        #{paymentConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConfigName != null">
+        #{paymentConfigName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSn != null">
+        #{refundSn,jdbcType=VARCHAR},
+      </if>
+      <if test="refundType != null">
+        #{refundType,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="depositId != null">
+        #{depositId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Refund">
+    update refund
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payee != null">
+        payee = #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        `operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConfigId != null">
+        payment_config_id = #{paymentConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentConfigName != null">
+        payment_config_name = #{paymentConfigName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSn != null">
+        refund_sn = #{refundSn,jdbcType=VARCHAR},
+      </if>
+      <if test="refundType != null">
+        refund_type = #{refundType,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="depositId != null">
+        deposit_id = #{depositId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="payee != null and payee != ''">
+         and payee = #{payee,jdbcType=VARCHAR}
+      </if>
+      <if test="bankName != null and bankName != ''">
+         and bank_name = #{bankName,jdbcType=VARCHAR}
+      </if>
+      <if test="bankAccount != null and bankAccount != ''">
+         and bank_account = #{bankAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="operator != null and operator != ''">
+         and `operator` = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null and memo != ''">
+         and memo = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="paymentConfigId != null and paymentConfigId != ''">
+         and payment_config_id = #{paymentConfigId,jdbcType=VARCHAR}
+      </if>
+      <if test="paymentConfigName != null and paymentConfigName != ''">
+         and payment_config_name = #{paymentConfigName,jdbcType=VARCHAR}
+      </if>
+      <if test="refundSn != null and refundSn != ''">
+         and refund_sn = #{refundSn,jdbcType=VARCHAR}
+      </if>
+      <if test="refundType != null and refundType != ''">
+         and refund_type = #{refundType,jdbcType=INTEGER}
+      </if>
+      <if test="totalAmount != null and totalAmount != ''">
+         and total_amount = #{totalAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="orderId != null and orderId != ''">
+         and order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="depositId != null and depositId != ''">
+         and deposit_id = #{depositId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Refund" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from refund
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from refund
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from refund
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from refund
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

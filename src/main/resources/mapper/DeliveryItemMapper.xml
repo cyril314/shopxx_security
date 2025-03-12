@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.DeliveryItemDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.DeliveryItem">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="delivery_quantity" jdbcType="INTEGER" property="deliveryQuantity" />
+    <result column="product_html_file_path" jdbcType="VARCHAR" property="productHtmlFilePath" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="reship_id" jdbcType="VARCHAR" property="reshipId" />
+    <result column="ship_id" jdbcType="VARCHAR" property="shipId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, delivery_quantity, product_html_file_path, product_name, 
+    product_sn, product_id, reship_id, ship_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from delivery_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from delivery_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.DeliveryItem" useGeneratedKeys="true">
+    insert into delivery_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity,
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="reshipId != null">
+        reship_id,
+      </if>
+      <if test="shipId != null">
+        ship_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipId != null">
+        #{reshipId,jdbcType=VARCHAR},
+      </if>
+      <if test="shipId != null">
+        #{shipId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.DeliveryItem">
+    update delivery_item
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryQuantity != null">
+        delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productHtmlFilePath != null">
+        product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="reshipId != null">
+        reship_id = #{reshipId,jdbcType=VARCHAR},
+      </if>
+      <if test="shipId != null">
+        ship_id = #{shipId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="deliveryQuantity != null and deliveryQuantity != ''">
+         and delivery_quantity = #{deliveryQuantity,jdbcType=INTEGER}
+      </if>
+      <if test="productHtmlFilePath != null and productHtmlFilePath != ''">
+         and product_html_file_path = #{productHtmlFilePath,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''">
+         and product_name = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productSn != null and productSn != ''">
+         and product_sn = #{productSn,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''">
+         and product_id = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="reshipId != null and reshipId != ''">
+         and reship_id = #{reshipId,jdbcType=VARCHAR}
+      </if>
+      <if test="shipId != null and shipId != ''">
+         and ship_id = #{shipId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.DeliveryItem" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from delivery_item
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from delivery_item
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from delivery_item
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from delivery_item
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

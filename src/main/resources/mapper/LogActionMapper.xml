@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.LogActionDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.LogAction">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="action_class_name" jdbcType="VARCHAR" property="actionClassName" />
+    <result column="action_method_name" jdbcType="VARCHAR" property="actionMethodName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, action_class_name, action_method_name, ip, info, `operation`, 
+    `operator`
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log_action
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from log_action
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.LogAction" useGeneratedKeys="true">
+    insert into log_action
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="actionClassName != null">
+        action_class_name,
+      </if>
+      <if test="actionMethodName != null">
+        action_method_name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="operation != null">
+        `operation`,
+      </if>
+      <if test="operator != null">
+        `operator`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionClassName != null">
+        #{actionClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionMethodName != null">
+        #{actionMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.LogAction">
+    update log_action
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionClassName != null">
+        action_class_name = #{actionClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionMethodName != null">
+        action_method_name = #{actionMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        `operation` = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        `operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="actionClassName != null and actionClassName != ''">
+         and action_class_name = #{actionClassName,jdbcType=VARCHAR}
+      </if>
+      <if test="actionMethodName != null and actionMethodName != ''">
+         and action_method_name = #{actionMethodName,jdbcType=VARCHAR}
+      </if>
+      <if test="ip != null and ip != ''">
+         and ip = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="info != null and info != ''">
+         and info = #{info,jdbcType=VARCHAR}
+      </if>
+      <if test="operation != null and operation != ''">
+         and `operation` = #{operation,jdbcType=VARCHAR}
+      </if>
+      <if test="operator != null and operator != ''">
+         and `operator` = #{operator,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.LogAction" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from log_action
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from log_action
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from log_action
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from log_action
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

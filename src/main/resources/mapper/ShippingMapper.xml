@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.ShippingDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Shipping">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="delivery_sn" jdbcType="VARCHAR" property="deliverySn" />
+    <result column="delivery_fee" jdbcType="DECIMAL" property="deliveryFee" />
+    <result column="delivery_corp_name" jdbcType="VARCHAR" property="deliveryCorpName" />
+    <result column="delivery_type_name" jdbcType="VARCHAR" property="deliveryTypeName" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="ship_address" jdbcType="VARCHAR" property="shipAddress" />
+    <result column="ship_area" jdbcType="VARCHAR" property="shipArea" />
+    <result column="ship_area_path" jdbcType="VARCHAR" property="shipAreaPath" />
+    <result column="ship_name" jdbcType="VARCHAR" property="shipName" />
+    <result column="ship_phone" jdbcType="VARCHAR" property="shipPhone" />
+    <result column="ship_mobile" jdbcType="VARCHAR" property="shipMobile" />
+    <result column="ship_zip_code" jdbcType="VARCHAR" property="shipZipCode" />
+    <result column="shipping_sn" jdbcType="VARCHAR" property="shippingSn" />
+    <result column="delivery_type_id" jdbcType="VARCHAR" property="deliveryTypeId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, delivery_sn, delivery_fee, delivery_corp_name, delivery_type_name, 
+    memo, ship_address, ship_area, ship_area_path, ship_name, ship_phone, ship_mobile, 
+    ship_zip_code, shipping_sn, delivery_type_id, order_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shipping
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from shipping
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Shipping" useGeneratedKeys="true">
+    insert into shipping
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn,
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee,
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name,
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="shipAddress != null">
+        ship_address,
+      </if>
+      <if test="shipArea != null">
+        ship_area,
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path,
+      </if>
+      <if test="shipName != null">
+        ship_name,
+      </if>
+      <if test="shipPhone != null">
+        ship_phone,
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile,
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code,
+      </if>
+      <if test="shippingSn != null">
+        shipping_sn,
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverySn != null">
+        #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryCorpName != null">
+        #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingSn != null">
+        #{shippingSn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Shipping">
+    update shipping
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverySn != null">
+        delivery_sn = #{deliverySn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null">
+        delivery_fee = #{deliveryFee,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryCorpName != null">
+        delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeName != null">
+        delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddress != null">
+        ship_address = #{shipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shipArea != null">
+        ship_area = #{shipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAreaPath != null">
+        ship_area_path = #{shipAreaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPhone != null">
+        ship_phone = #{shipPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipMobile != null">
+        ship_mobile = #{shipMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shipZipCode != null">
+        ship_zip_code = #{shipZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingSn != null">
+        shipping_sn = #{shippingSn,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTypeId != null">
+        delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="deliverySn != null and deliverySn != ''">
+         and delivery_sn = #{deliverySn,jdbcType=VARCHAR}
+      </if>
+      <if test="deliveryFee != null and deliveryFee != ''">
+         and delivery_fee = #{deliveryFee,jdbcType=DECIMAL}
+      </if>
+      <if test="deliveryCorpName != null and deliveryCorpName != ''">
+         and delivery_corp_name = #{deliveryCorpName,jdbcType=VARCHAR}
+      </if>
+      <if test="deliveryTypeName != null and deliveryTypeName != ''">
+         and delivery_type_name = #{deliveryTypeName,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null and memo != ''">
+         and memo = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="shipAddress != null and shipAddress != ''">
+         and ship_address = #{shipAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="shipArea != null and shipArea != ''">
+         and ship_area = #{shipArea,jdbcType=VARCHAR}
+      </if>
+      <if test="shipAreaPath != null and shipAreaPath != ''">
+         and ship_area_path = #{shipAreaPath,jdbcType=VARCHAR}
+      </if>
+      <if test="shipName != null and shipName != ''">
+         and ship_name = #{shipName,jdbcType=VARCHAR}
+      </if>
+      <if test="shipPhone != null and shipPhone != ''">
+         and ship_phone = #{shipPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="shipMobile != null and shipMobile != ''">
+         and ship_mobile = #{shipMobile,jdbcType=VARCHAR}
+      </if>
+      <if test="shipZipCode != null and shipZipCode != ''">
+         and ship_zip_code = #{shipZipCode,jdbcType=VARCHAR}
+      </if>
+      <if test="shippingSn != null and shippingSn != ''">
+         and shipping_sn = #{shippingSn,jdbcType=VARCHAR}
+      </if>
+      <if test="deliveryTypeId != null and deliveryTypeId != ''">
+         and delivery_type_id = #{deliveryTypeId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderId != null and orderId != ''">
+         and order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Shipping" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from shipping
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from shipping
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from shipping
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from shipping
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

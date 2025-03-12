@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.ProductAttributeMapstoreDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.ProductAttributeMapstore">
+    <id column="Product_id" jdbcType="VARCHAR" property="productId" />
+    <id column="mapkey_id" jdbcType="VARCHAR" property="mapkeyId" />
+    <result column="element" jdbcType="VARCHAR" property="element" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Product_id, mapkey_id, `element`
+  </sql>
+  <select id="getById" parameterType="com.fit.entity.ProductAttributeMapstoreKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_attribute_mapstore
+    where Product_id = #{productId,jdbcType=VARCHAR}
+      and mapkey_id = #{mapkeyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="com.fit.entity.ProductAttributeMapstoreKey">
+    delete from product_attribute_mapstore
+    where Product_id = #{productId,jdbcType=VARCHAR}
+      and mapkey_id = #{mapkeyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.ProductAttributeMapstore" useGeneratedKeys="true">
+    insert into product_attribute_mapstore
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        Product_id,
+      </if>
+      <if test="mapkeyId != null">
+        mapkey_id,
+      </if>
+      <if test="element != null">
+        `element`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="mapkeyId != null">
+        #{mapkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="element != null">
+        #{element,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.ProductAttributeMapstore">
+    update product_attribute_mapstore
+    <set>
+      <if test="element != null">
+        `element` = #{element,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Product_id = #{productId,jdbcType=VARCHAR}
+      and mapkey_id = #{mapkeyId,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="element != null and element != ''">
+         and `element` = #{element,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.ProductAttributeMapstore" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from product_attribute_mapstore
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from product_attribute_mapstore
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from product_attribute_mapstore
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from product_attribute_mapstore
+     where Product_id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

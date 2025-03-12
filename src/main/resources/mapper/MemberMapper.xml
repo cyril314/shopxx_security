@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.MemberDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.Member">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="deposit" jdbcType="DECIMAL" property="deposit" />
+    <result column="is_enabled" jdbcType="BIT" property="isEnabled" />
+    <result column="is_locked" jdbcType="BIT" property="isLocked" />
+    <result column="locked_time" jdbcType="TIMESTAMP" property="lockedTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount" />
+    <result column="password_recover_key" jdbcType="VARCHAR" property="passwordRecoverKey" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="safe_answer" jdbcType="VARCHAR" property="safeAnswer" />
+    <result column="safe_question" jdbcType="VARCHAR" property="safeQuestion" />
+    <result column="member_rank_id" jdbcType="VARCHAR" property="memberRankId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, modify_time, username, `password`, email, deposit, is_enabled, is_locked, 
+    locked_time, login_ip, login_time, login_failure_count, password_recover_key, point, 
+    register_ip, safe_answer, safe_question, member_rank_id
+  </sql>
+  <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from member
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.Member" useGeneratedKeys="true">
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isLocked != null">
+        is_locked,
+      </if>
+      <if test="lockedTime != null">
+        locked_time,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count,
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="registerIp != null">
+        register_ip,
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer,
+      </if>
+      <if test="safeQuestion != null">
+        safe_question,
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null">
+        #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedTime != null">
+        #{lockedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="passwordRecoverKey != null">
+        #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="registerIp != null">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.Member">
+    update member
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null">
+        is_locked = #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedTime != null">
+        locked_time = #{lockedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null">
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="passwordRecoverKey != null">
+        password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="registerIp != null">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        safe_answer = #{safeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        safe_question = #{safeQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="memberRankId != null">
+        member_rank_id = #{memberRankId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="createTime != null and createTime != ''">
+         and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="username != null and username != ''">
+         and username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null and password != ''">
+         and `password` = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null and email != ''">
+         and email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="deposit != null and deposit != ''">
+         and deposit = #{deposit,jdbcType=DECIMAL}
+      </if>
+      <if test="isEnabled != null and isEnabled != ''">
+         and is_enabled = #{isEnabled,jdbcType=BIT}
+      </if>
+      <if test="isLocked != null and isLocked != ''">
+         and is_locked = #{isLocked,jdbcType=BIT}
+      </if>
+      <if test="lockedTime != null and lockedTime != ''">
+         and locked_time = #{lockedTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="loginIp != null and loginIp != ''">
+         and login_ip = #{loginIp,jdbcType=VARCHAR}
+      </if>
+      <if test="loginTime != null and loginTime != ''">
+         and login_time = #{loginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="loginFailureCount != null and loginFailureCount != ''">
+         and login_failure_count = #{loginFailureCount,jdbcType=INTEGER}
+      </if>
+      <if test="passwordRecoverKey != null and passwordRecoverKey != ''">
+         and password_recover_key = #{passwordRecoverKey,jdbcType=VARCHAR}
+      </if>
+      <if test="point != null and point != ''">
+         and point = #{point,jdbcType=INTEGER}
+      </if>
+      <if test="registerIp != null and registerIp != ''">
+         and register_ip = #{registerIp,jdbcType=VARCHAR}
+      </if>
+      <if test="safeAnswer != null and safeAnswer != ''">
+         and safe_answer = #{safeAnswer,jdbcType=VARCHAR}
+      </if>
+      <if test="safeQuestion != null and safeQuestion != ''">
+         and safe_question = #{safeQuestion,jdbcType=VARCHAR}
+      </if>
+      <if test="memberRankId != null and memberRankId != ''">
+         and member_rank_id = #{memberRankId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.Member" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from member
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from member
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from member
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from member
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>
