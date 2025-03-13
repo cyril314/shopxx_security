@@ -80,7 +80,7 @@ $().ready(function() {
 							</span>
 						</td>
 						<td>
-							${list.orderList}
+							${list.sort}
 						</td>
 						<td>
 							<a href="${base!}/shop/product!list.action?id=${list.id}" target="_blank" title="查看">[查看]</a>

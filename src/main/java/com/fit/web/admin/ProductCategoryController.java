@@ -5,6 +5,7 @@ import com.fit.base.R;
 import com.fit.entity.Product;
 import com.fit.entity.ProductCategory;
 import com.fit.entity.ProductType;
+import com.fit.service.HtmlService;
 import com.fit.service.ProductCategoryService;
 import com.fit.service.ProductService;
 import com.fit.service.ProductTypeService;
@@ -12,6 +13,7 @@ import com.fit.util.BeanUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,9 +28,11 @@ import java.util.Map;
  * @DATE 2025/1/9
  */
 @Controller
-@RequestMapping("/admin/productCategory")
+@RequestMapping("/admin/product_category")
 public class ProductCategoryController extends BaseController {
 
+    @Autowired
+    private HtmlService htmlService;
     @Autowired
     private ProductCategoryService productCategoryService;
     @Autowired
@@ -36,12 +40,20 @@ public class ProductCategoryController extends BaseController {
 
     @RequestMapping("/list")
     public String list(HttpServletRequest request) {
-        return "";
+        request.setAttribute("productCategoryTreeList", htmlService.getProductCategoryTree());
+        return "/admin/product_category_list";
     }
 
     @RequestMapping("/add")
-    public String add(HttpServletRequest request) {
-        return "";
+    public String add(HttpServletRequest request, String id) {
+        ProductCategory productCategory = new ProductCategory();
+        if (!StringUtils.isEmpty(id)) {
+            productCategory = this.productCategoryService.get(id);
+        }
+        request.setAttribute("id", id);
+        request.setAttribute("productCategory", productCategory);
+        request.setAttribute("productCategoryTreeList", htmlService.getProductCategoryTree());
+        return "/admin/product_category_input";
     }
 
     @RequestMapping("/save")
