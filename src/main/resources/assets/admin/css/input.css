@@ -9,6 +9,8 @@
  **/
 
 .input .body {
+    overflow-x: auto;
+    overflow-y: auto;
 	padding-bottom: 30px;
 }
 

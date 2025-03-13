@@ -10,7 +10,6 @@
 <link href="${base!}/assets/admin/css/input.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $().ready(function() {
-
 	// 查询商品属性
 	$("#productTypeId").change( function() {
 		$(".productAttributeContentTr").remove();
@@ -113,7 +112,8 @@ $().ready(function() {
 		var $productImageLi = $this.parent().parent().parent();
 		var $productImagePreview = $productImageLi.find(".productImagePreview");
 		var fileName = $this.val().substr($this.val().lastIndexOf("\\") + 1);
-		if (/(<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@net.shopxx.bean.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>.${list}|<#else>.${list}</#if></#list>)$/i.test($this.val()) == false) {
+		if (/(<#list systemConfig.allowedUploadImageExtension!?split(systemConfig.EXTENSION_SEPARATOR!) as list><#if list_has_next>
+		.${list}|<#else>.${list}</#if></#list>)$/i.test($this.val()) == false) {
 			$.message("您选择的文件格式错误！");
 			return false;
 		}
@@ -164,7 +164,7 @@ $().ready(function() {
 		</div>
 		<div class="blank"></div>
 		<form id="inputForm" class="validate" action="<#if isAdd??>product!save.action<#else>product!update.action</#if>" method="post" enctype="multipart/form-data" >
-			<input type="hidden" name="id" value="${id}" />
+			<input type="hidden" name="id" value="${id!}" />
 			<ul class="tab">
 				<li>
 					<input type="button" value="基本信息" hidefocus="true" />
@@ -202,7 +202,7 @@ $().ready(function() {
 						<select name="product.productCategory.id" class="{required: true}">
 							<option value="">请选择...</option>
 							<#list productCategoryTreeList as list>
-								<option value="${list.id}"<#if (list.id == product.productCategory.id)!> selected</#if>>
+								<option value="${list.id}"<#if (list.id == (product.productCategoryId)!)!> selected</#if>>
 									<#if list.level != 0>
 										<#list 1..list.level as i>------</#list>
 									</#if>
@@ -217,10 +217,10 @@ $().ready(function() {
 						商品品牌:
 					</th>
 					<td>
-						<select name="product.brand.id">
+						<select name="product.brandId">
 							<option value="">请选择...</option>
 							<#list allBrand as list>
-								<option value="${list.id}"<#if (list.id == product.brand.id)!> selected </#if>>
+								<option value="${list.id}"<#if (list.id == product.brandId!)!> selected </#if>>
 									${list.name}
 								</option>
 							</#list>
@@ -263,8 +263,8 @@ $().ready(function() {
 						<input type="text" name="product.weight" class="formText {required: true, min: 0, messagePosition: '#weightMessagePosition'}" value="${(product.weight)!"0"}" title="0表示不计重量" />
 						<select name="product.weightUnit">
 							<#list allWeightUnit as list>
-								<option value="${list}"<#if (list == product.weightUnit)!> selected </#if>>
-									${action.getText("WeightUnit." + list)}
+								<option value="${list}"<#if (list == product.weightUnit!)!> selected </#if>>
+									${message("WeightUnit." + list)}
 								</option>
 							</#list>
 						</select>
@@ -273,53 +273,43 @@ $().ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>
-						库存量:
-					</th>
+					<th>库存量:</th>
 					<td>
 						<input type="text" name="product.store" class="formText {digits: true}" value="${(product.store)!}" title="只允许输入零或正整数，为空表示不计库存" />				 						
 					</td>
 				</tr>
 				<tr>
-					<th>
-						是否精品推荐:
-					</th>
+					<th>是否精品推荐:</th>
 					<td>
-						<label><input type="radio" name="product.isBest" value="true"<#if (product.isBest == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isBest" value="false"<#if (isAdd || product.isBest == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isBest" value="true"<#if (product.isBest!false)!> checked</#if> />是</label>
+						<label><input type="radio" name="product.isBest" value="false"<#if (isAdd || !(product.isBest)!false)>checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
-					<th>
-						是否新品推荐:
-					</th>
+					<th>是否新品推荐:</th>
 					<td>
-						<label><input type="radio" name="product.isNew" value="true"<#if (product.isNew == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isNew" value="false"<#if (isAdd || product.isNew == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isNew" value="true"<#if (product.isNew!false)!> checked</#if> />是</label>
+						<label><input type="radio" name="product.isNew" value="false"<#if (isAdd || !(product.isNew)!false)!> checked</#if>
+                            />否</label>
 					</td>
 				</tr>
 				<tr>
-					<th>
-						是否热销推荐:
-					</th>
+					<th>是否热销推荐:</th>
 					<td>
-						<label><input type="radio" name="product.isHot" value="true"<#if (product.isHot == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isHot" value="false"<#if (isAdd || product.isHot == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isHot" value="true"<#if (product.isHot!false)!> checked</#if> />是</label>
+						<label><input type="radio" name="product.isHot" value="false"<#if (isAdd || !(product.isHot)!false)!> checked</#if>
+                            />否</label>
 					</td>
 				</tr>
 				<tr>
-					<th>
-						是否上架:
-					</th>
+					<th>是否上架:</th>
 					<td>
-						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd || product.isMarketable == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isMarketable" value="false"<#if (product.isMarketable == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd || product.isMarketable!false)!> checked</#if> />是</label>
+						<label><input type="radio" name="product.isMarketable" value="false"<#if !(product.isMarketable!false)!> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
-					<th>
-						上传商品图片
-					</th>
+					<th>上传商品图片</th>
 					<td>
 						<div class="productImageArea">
 							<div class="example"></div>
@@ -373,7 +363,7 @@ $().ready(function() {
 							<a class="next browse" href="javascript:void(0);" hidefocus="true"></a>
 							<div class="blank"></div>
 							<#if systemConfig.allowedUploadImageExtension != "">
-								<span class="warnInfo"><span class="icon">&nbsp;</span><#if (systemConfig.uploadLimit) != 0 && (systemConfig.uploadLimit < 1024)>小于${systemConfig.uploadLimit}KB<#elseif (systemConfig.uploadLimit >= 1024)>小于${systemConfig.uploadLimit / 1024}MB</#if> (<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@net.shopxx.bean.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>*.${list};<#else>*.${list}</#if></#list>)</span>
+								<span class="warnInfo"><span class="icon">&nbsp;</span><#if (systemConfig.uploadLimit) != 0 && (systemConfig.uploadLimit < 1024)>小于${systemConfig.uploadLimit}KB<#elseif (systemConfig.uploadLimit >= 1024)>小于${systemConfig.uploadLimit / 1024}MB</#if> (<#list systemConfig.allowedUploadImageExtension?split(systemConfig.EXTENSION_SEPARATOR!) as list><#if list_has_next>*.${list};<#else>*.${list}</#if></#list>)</span>
 							<#else>
 								<span class="warnInfo"><span class="icon">&nbsp;</span>系统设置不允许上传图片文件!</span>
 							</#if>
@@ -381,17 +371,13 @@ $().ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>
-						页面关键词:
-					</th>
+					<th>页面关键词:</th>
 					<td>
 						<input type="text" name="product.metaKeywords" class="formText" value="${(product.metaKeywords)!}" />
 					</td>
 				</tr>
 				<tr>
-					<th>
-						页面描述:
-					</th>
+					<th>页面描述:</th>
 					<td>
 						<textarea name="product.metaDescription" class="formTextarea">${(product.metaDescription)!}</textarea>
 					</td>
@@ -406,14 +392,12 @@ $().ready(function() {
 			</table>
 			<table class="inputTable tabContent">
 				<tr id="productTypeTr">
-					<th>
-						商品类型:
-					</th>
+					<th>商品类型:</th>
 					<td>
 						<select name="product.productType.id" id="productTypeId">
 							<option value="">请选择...</option>
 							<#list allProductType as list>
-								<option value="${list.id}"<#if (list.id == product.productType.id)!> selected </#if>>${list.name}</option>
+								<option value="${list.id}"<#if (list.id == product.productTypeId!)!> selected </#if>>${list.name}</option>
 							</#list>
 						</select>
 					</td>

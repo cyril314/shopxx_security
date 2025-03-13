@@ -10,7 +10,7 @@
  
 /* 解决IE6对hover支持的问题 */
 body {
-	_behavior: url("../assets/common/css/csshover3.htc");
+	_behavior: url("./csshover3.htc");
 }
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
@@ -87,6 +87,15 @@ ul {
 
 input, select, label {
 	vertical-align: middle
+}
+
+select{
+    width: 212px;
+    padding: 5px;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    border-left: 1px solid #999999;
 }
 
 .clearfix:after {

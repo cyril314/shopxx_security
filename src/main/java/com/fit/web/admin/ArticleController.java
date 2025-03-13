@@ -5,6 +5,7 @@ import com.fit.base.R;
 import com.fit.bean.Pager;
 import com.fit.entity.Article;
 import com.fit.service.ArticleService;
+import com.fit.service.HtmlService;
 import com.fit.util.BeanUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,6 +36,8 @@ public class ArticleController extends BaseController {
     private CacheManager cacheManager;
     @Value("${spring.cache.cache-names}")
     private String cacheName;
+    @Autowired
+    private HtmlService htmlService;
 
     @RequestMapping("/list")
     public String list(HttpServletRequest request) {
@@ -50,8 +54,16 @@ public class ArticleController extends BaseController {
     }
 
     @RequestMapping("/add")
-    public String add(HttpServletRequest request) {
-        return "";
+    public String add(HttpServletRequest request, String id) {
+        Article article = new Article();
+        if (StringUtils.isEmpty(id)) {
+            article = this.articleService.get(id);
+        }
+
+        request.setAttribute("id", id);
+        request.setAttribute("article", article);
+        request.setAttribute("articleCategoryTreeList", htmlService.getArticleCategoryTree());
+        return "/admin/article_input";
     }
 
     @RequestMapping("/save")

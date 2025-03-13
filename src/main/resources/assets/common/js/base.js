@@ -1,5 +1,5 @@
 var shopxx = {
-    base: "/shop", currencySign: "CNY",// 货币符号
+    base: "/", currencySign: "CNY",// 货币符号
     currencyUnit: "元",// 货币单位
     priceScale: "2",// 商品价格精确位数
     priceRoundType: "ROUND_HALF_UP",// 商品价格精确方式
@@ -118,7 +118,7 @@ $().ready(function () {
     });
     // 所见即所得编辑器
     $("textarea.wysiwyg").tinymce({
-        script_url: shopxx.base + "/template/common/tiny_mce/tiny_mce.js",
+        script_url: shopxx.base + "/assets/common/tiny_mce/tiny_mce.js",
         language: "zh",
         theme: "advanced",
         plugins: "table,advimage,inlinepopups,preview,media,contextmenu,paste,fullscreen",

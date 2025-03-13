@@ -305,7 +305,7 @@ $().ready( function() {
 								</td>
 							</#if>
 							<td>
-								${list.product.weight} ${action.getText("WeightUnit." + list.product.weightUnit)}
+								${list.product.weight} ${message("WeightUnit." + list.product.weightUnit)}
 							</td>
 							<td>
 								<span class="subtotalPrice">${list.subtotalPrice?string(orderCurrencyFormat)}</span>
